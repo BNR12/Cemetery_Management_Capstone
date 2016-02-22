@@ -36,6 +36,9 @@ public class MainWindow extends JPanel
   private JButton dateButton;
   private JPanel intermentPanel;
   private JPanel datePanel;
+  private JButton mapButton;
+  private JPanel extraPanel;
+  private JButton paymentButton;
 
   /**
    * Constructor for MainWindow
@@ -150,6 +153,19 @@ public class MainWindow extends JPanel
 
     add(plotPanel);
     plotPanel.setVisible(true);
+
+    //Initialize mapButton
+    extraPanel = new JPanel(new GridLayout(1, 2));
+    extraPanel.setBackground(panelColor); // set name panel color
+    mapButton = new JButton("Click here to view a map of the cemetery.");
+    mapButton.setFont(mainFont); // set name button font
+    mapButton.addActionListener(new mapListener());
+    paymentButton = new JButton("Click here to manage payments.");
+    paymentButton.setFont(mainFont); // set name button font
+    paymentButton.addActionListener(new paymentListener());
+    extraPanel.add(mapButton);
+    extraPanel.add(paymentButton);
+    add(extraPanel);
   }
 
   /**
@@ -393,6 +409,31 @@ public class MainWindow extends JPanel
     }
   }
 
+  /**
+   * Class housing actionListener for mapButton
+   */
+  class mapListener implements ActionListener
+  {
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+      //Will open a new window displaying a map of the cemetery on click
+      MapWindow map = new MapWindow();
+      map.setVisible(true);
+    }
+  }
+
+  /**
+   * Class housing actionListener for paymentButton
+   */
+  class paymentListener implements ActionListener
+  {
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        //Will open a new window, for the payment management system on click
+    }
+  }
 
   /**
    * A ResultSet is table of data representing a database.
