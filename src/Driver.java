@@ -9,7 +9,7 @@ public class Driver
   private static JFrame mainWindow; //Frame housing MainWindow and DisplayPanel
   private static MainWindow mw;
   private static DisplayPanel dp;
-    
+
   /**
    * main, used to handle arguments and call Driver() to start GUI
    *
