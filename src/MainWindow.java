@@ -432,8 +432,11 @@ public class MainWindow extends JPanel
     public void actionPerformed(ActionEvent e)
     {
         //Will open a new window, for the payment management system on click
+        PaymentWindow pay = new PaymentWindow();
+        pay.setVisible(true);
     }
   }
+
 
   /**
    * A ResultSet is table of data representing a database.
