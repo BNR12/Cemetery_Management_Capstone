@@ -11,6 +11,7 @@ import java.io.IOException;
 public class ZoomWindow extends JDialog {
 
     private JLabel image;
+    String fn;
     /**
      * Window displaying a zoomed in map of specified section
      * @param section
@@ -24,13 +25,13 @@ public class ZoomWindow extends JDialog {
 
         try{
             //Add the map image
-            String fn = section + "map.png";
-            BufferedImage myPicture = ImageIO.read(new File(fn));
+            fn = section + "map.png";
+            BufferedImage myPicture = ImageIO.read(new File("/Users/brittanyregrut/Desktop/Cemetery_Management_Capstone/src/"+fn));
             image = new JLabel(new ImageIcon(myPicture));
             add(image);
         }catch (IOException e){
             //Map file not found
-            System.out.println(section + " Cemetery Map not found");
+            System.out.println(fn + " not found");
             System.exit(1);
         }
     }
