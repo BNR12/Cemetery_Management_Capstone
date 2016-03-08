@@ -10540,3 +10540,7 @@ org.h2.message.DbException: The connection was not closed by the application and
 Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-190]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
 	... 37 more
+2016-03-08 13:25:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-190]
+2016-03-08 13:28:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-190]
