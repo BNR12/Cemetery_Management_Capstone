@@ -11001,3 +11001,5 @@ org.h2.message.DbException: Wrong user name or password [28000-190]
 Caused by: org.h2.jdbc.JdbcSQLException: Wrong user name or password [28000-190]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
 	... 30 more
+2016-03-18 11:54:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-190]

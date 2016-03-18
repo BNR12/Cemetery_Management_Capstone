@@ -24,6 +24,29 @@ public class Entry
   private String rmfNotes;
   private String linerNotes;
 
+  public Entry(){
+    this.firstName = "";
+    this.lastName = "";
+    this.plotNumber = "";
+    this.dateDeceased = "";
+    this.section = "";
+    this.graveNumber = "";
+    this.intermentNumber = "";
+    this.pInt = "";
+    this.liner = "";
+    this.CGC = "";
+    this.RMF = "";
+    this.monument = "";
+    this.planting = "";
+    this.veteran = "";
+    this.cremated = "";
+    this.foundations = "";
+    this.monumentNotes = "";
+    this.cgcNotes = "";
+    this.rmfNotes = "";
+    this.linerNotes = "";
+  }
+
   public Entry(String fn, String ln, String pn, String date, String sec, String grave, String intermentNum, String pnInt, String pnLiner, String pnCGC, String pnRMF, String mon, String ppPlanting, String vet, String crem, String found, String mnotes, String cnotes, String rnotes, String lnotes)
   {
     this.firstName = fn;

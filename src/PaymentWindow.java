@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by brittanyregrut on 2/23/16.
@@ -22,6 +22,7 @@ public class PaymentWindow extends JFrame {
     private JTextField plotField3;
     private JButton plotButton;
     private JPanel titlePanel;
+    private PaymentDisplayPanel pdp;
 
 
 
@@ -32,11 +33,11 @@ public class PaymentWindow extends JFrame {
         //set basic functionality
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) ((.66) * (screenSize.getWidth()));
-        int height = (int) ((.5) * (screenSize.getHeight()));
+        int height = (int) ((.66) * (screenSize.getHeight()));
         Dimension min = new Dimension(width, height); //set frame to 2/3 screen width and height
         setMinimumSize(min);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(4, 1));
 
         //stylize
         Color backgroundColor = new Color(153, 204, 255); //initialize main color
@@ -105,6 +106,11 @@ public class PaymentWindow extends JFrame {
         plotPanel.add(plotButton);
         add(plotPanel);
         plotPanel.setVisible(true);
+
+        //Create a new PaymentDisplayPanel
+        pdp = new PaymentDisplayPanel();
+        add(pdp);
+        pdp.setVisible(true);
 
     }
 
@@ -214,4 +220,70 @@ public class PaymentWindow extends JFrame {
             }*/
         }
     }
+
+    /**
+     * Helper method to query the DB
+     *
+     * @param query string used to query database
+     * @returns number of results found by database
+     */
+    public static int queryDb(String query) throws java.sql.SQLException
+    {
+        int numEntries = 0; // Number of entries - used primarily for JUnit tests
+
+        try
+        {
+            //establishes connection to our DB
+            Class.forName("org.h2.Driver");
+            Connection con = DriverManager.getConnection("jdbc:h2:./h2/cemetery;IFEXISTS=TRUE", "laboon", "bethshalom");
+            Statement stmt = con.createStatement();
+
+            //sql statement to collect all the data in a certain row where the first name matches whatever entered into s
+            ResultSet rs = stmt.executeQuery(query);
+
+            //i is a counter for number of results in resultset
+            int i = 0;
+
+            while (rs.next())
+            {
+                numEntries++; // Increment number of entries
+
+                //tokenizes the results of select statement into individual strings corresponding to their columns
+                String fname = rs.getString("DECEASED_FNAME");
+                String lname = rs.getString("DECEASED_LNAME");
+                String plotNum = rs.getString("PLOT_NUMBER");
+                String date = rs.getString("DATE_DECEASED");
+                String sectionNum = rs.getString("SECTION");
+                String graveNum = rs.getString("GRAVE");
+                String intermentNumber = rs.getString("INTERMENT_NUMBER");
+                String pInt = rs.getString("PN_INT");
+                String liner = rs.getString("PN_LINER");
+                String CGC = rs.getString("PN_CGC");
+                String RMF = rs.getString("PN_RMF");
+                String monument = rs.getString("MONUMENT");
+                String planting = rs.getString("PP_PLANTING");
+                String veteran = rs.getString("VETERAN");
+                String cremated = rs.getString("CREMATED");
+                String foundations = rs.getString("FOUNDATIONS");
+                String monumentNotes = rs.getString("MONUMENT_NOTES");
+                String cgcNotes = rs.getString("CGC_NOTES");
+                String rmfNotes = rs.getString("RMF_NOTES");
+                String linerNotes = rs.getString("LINER_NOTES");
+
+                //Create a new entry object for this result
+                Entry en = new Entry(fname, lname, plotNum, date, sectionNum, graveNum, intermentNumber, pInt, liner, CGC, RMF, monument, planting, veteran, cremated, foundations, monumentNotes, cgcNotes, rmfNotes, linerNotes);
+                i++; //increment the row in the table so if multiple results returned, each is displayed in a new row
+            }
+            stmt.close();
+            con.close();
+
+            return numEntries;
+        }
+        catch (Exception er)
+        {
+            System.out.println(er.getMessage());
+            return numEntries;
+        }
+    }
+
 }
