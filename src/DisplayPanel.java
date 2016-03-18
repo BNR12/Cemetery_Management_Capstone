@@ -80,13 +80,16 @@ public class DisplayPanel extends JPanel
 
     //Create panel to hold buttons
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new GridLayout(1, 5));
+    buttonPanel.setLayout(new GridLayout(1, 6));
 
     //Create new buttons and add to the button panel
     JButton select = new JButton("View Entries");
     buttonPanel.add(select);
 
-    final JButton print = new JButton("Print Selected Entries");
+    JButton payment = new JButton("View Payments");
+    buttonPanel.add(payment);
+
+    final JButton print = new JButton("Print Selection");
     buttonPanel.add(print);
 
     JButton all = new JButton("Select All");
@@ -114,6 +117,29 @@ public class DisplayPanel extends JPanel
           searchTable.setValueAt(true, i, 7);
         }
 
+      }
+    });
+
+    //Action listener for the payment button to view payment information for checked results
+    payment.addActionListener(new ActionListener()
+    {
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+
+        //determine if a row is selected
+        for (int i = 0; i < searchTable.getRowCount(); i++)
+        {
+          Boolean checked = Boolean.valueOf(searchTable.getValueAt(i, 7).toString());
+
+          //display a PaymentView for each selected entry
+          if (checked)
+          {
+            //New ContentPane
+            PaymentView pay = new PaymentView(results.get(i));
+            pay.setVisible(true);
+          }
+        }
       }
     });
 
