@@ -507,9 +507,13 @@ public class MainWindow extends JPanel
         String cgcNotes = rs.getString("CGC_NOTES");
         String rmfNotes = rs.getString("RMF_NOTES");
         String linerNotes = rs.getString("LINER_NOTES");
+        String payment = rs.getString("PAYMENT_ID");
+        //String balance = rs.getString("UNPAID_BALANCE");
+        //String payment = "0";
+        String balance = "0.00";
 
         //Create a new entry object for this result
-        Entry en = new Entry(fname, lname, plotNum, date, sectionNum, graveNum, intermentNumber, pInt, liner, CGC, RMF, monument, planting, veteran, cremated, foundations, monumentNotes, cgcNotes, rmfNotes, linerNotes);
+        Entry en = new Entry(fname, lname, plotNum, date, sectionNum, graveNum, intermentNumber, pInt, liner, CGC, RMF, monument, planting, veteran, cremated, foundations, monumentNotes, cgcNotes, rmfNotes, linerNotes, Integer.parseInt(payment), Double.parseDouble(balance));
         dp.add(fname, lname, intermentNumber, sectionNum, plotNum, graveNum, date, i, en); //add the current result to the table data
         i++; //increment the row in the table so if multiple results returned, each is displayed in a new row
       }

@@ -7,22 +7,33 @@ import java.awt.*;
 public class PaymentView extends JDialog {
 
     private JLabel test = new JLabel("Testing Payment View");
+    private JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+    private JButton add = new JButton("Add a new payment");
+    private JButton charge = new JButton("Add new charges");
+    private PaymentPanel pp = new PaymentPanel();
 
     /** Opens a payment information viewer for an existing entry */
     public PaymentView(Entry en){
 
         //set basic functionality
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) ((.25) * (screenSize.getWidth()));
-        int height = (int) ((.25) * (screenSize.getHeight()));
+        int width = (int) ((.66) * (screenSize.getWidth()));
+        int height = (int) ((.66) * (screenSize.getHeight()));
         Dimension min = new Dimension(width, height); //set frame to 1/4 screen width and height
         setMinimumSize(min);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(2, 1));
 
+        //Add Buttons to Panel
+        buttonPanel.add(add);
+        buttonPanel.add(charge);
 
+        //Add button panel
+        add(buttonPanel);
 
-        add(test);
+        //Add payment panel
+        add(pp);
+
     }
 
     /** Opens a blank payment information viewer for an available plot,

@@ -205,9 +205,11 @@ public class ZoomWindow extends JDialog {
             String cgcNotes = rs.getString("CGC_NOTES");
             String rmfNotes = rs.getString("RMF_NOTES");
             String linerNotes = rs.getString("LINER_NOTES");
+            String payment = rs.getString("PAYMENT_ID");
+            String balance = rs.getString("UNPAID_BALANCE");
 
             //Create a new entry object for this result
-            Entry en = new Entry(fname, lname, plotNum, date, sectionNum, graveNum, intermentNumber, pInt, liner, CGC, RMF, monument, planting, veteran, cremated, foundations, monumentNotes, cgcNotes, rmfNotes, linerNotes);
+            Entry en = new Entry(fname, lname, plotNum, date, sectionNum, graveNum, intermentNumber, pInt, liner, CGC, RMF, monument, planting, veteran, cremated, foundations, monumentNotes, cgcNotes, rmfNotes, linerNotes, Integer.parseInt(payment), Double.parseDouble(balance));
 
             //Display an edit entry window
             EditEntry entryDisplay = new EditEntry(en);

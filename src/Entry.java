@@ -23,6 +23,8 @@ public class Entry
   private String cgcNotes;
   private String rmfNotes;
   private String linerNotes;
+  private Integer payment;
+  private double balance;
 
   public Entry(){
     this.firstName = "";
@@ -47,7 +49,7 @@ public class Entry
     this.linerNotes = "";
   }
 
-  public Entry(String fn, String ln, String pn, String date, String sec, String grave, String intermentNum, String pnInt, String pnLiner, String pnCGC, String pnRMF, String mon, String ppPlanting, String vet, String crem, String found, String mnotes, String cnotes, String rnotes, String lnotes)
+  public Entry(String fn, String ln, String pn, String date, String sec, String grave, String intermentNum, String pnInt, String pnLiner, String pnCGC, String pnRMF, String mon, String ppPlanting, String vet, String crem, String found, String mnotes, String cnotes, String rnotes, String lnotes, Integer pay, double bal)
   {
     this.firstName = fn;
     this.lastName = ln;
@@ -69,6 +71,8 @@ public class Entry
     this.cgcNotes = cnotes;
     this.rmfNotes = rnotes;
     this.linerNotes = lnotes;
+    this.payment = pay;
+    this.balance = bal;
   }
 
   //Getter methods
@@ -282,6 +286,14 @@ public class Entry
   public String getLinerNotes()
   {
     return linerNotes;
+  }
+
+  public Integer getPaymentID(){
+    return payment;
+  }
+
+  public double getBalance(){
+    return balance;
   }
 
 
