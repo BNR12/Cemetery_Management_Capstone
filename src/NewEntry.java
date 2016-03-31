@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
@@ -153,6 +154,8 @@ public class NewEntry extends JDialog
       String interment = intermentNumberText.getText();
       String pnliner;
 
+      Integer payment;
+
       if (linerBox.isSelected())
       {
         pnliner = "Liner";
@@ -266,6 +269,17 @@ public class NewEntry extends JDialog
         firstName = capitalize(firstName);
         lastName = capitalize(lastName);
 
+        //Find the maximum payment id
+        ResultSet pay = stmt.executeQuery("SELECT MAX(PAYMENT_ID) from PLOTS;");
+        String test;
+        payment = 0;
+        if(pay.next()) {
+          test = pay.getString("MAX(PAYMENT_ID)");
+          payment = Integer.parseInt(test);
+          //increment the payment ID
+          payment++;
+        }
+
         //execute an insert into our DB
         if (!date.equals(""))
         {
@@ -273,12 +287,12 @@ public class NewEntry extends JDialog
               "INSERT INTO PLOTS (DECEASED_FNAME, DECEASED_LNAME, " +
               "PLOT_NUMBER, DATE_DECEASED, SECTION, GRAVE, INTERMENT_NUMBER, PN_LINER, " +
               "PN_CGC, PN_RMF, MONUMENT, PP_PLANTING, VETERAN, CREMATED, LINER_NOTES, " +
-              "RMF_NOTES, CGC_NOTES, MONUMENT_NOTES) " +
+              "RMF_NOTES, CGC_NOTES, MONUMENT_NOTES, UNPAID_BALANCE, PAYMENT_ID) " +
               "VALUES ('" + firstName + "'," + "'" + lastName + "'," + "'" + plotNumber + "'," +
               "'" + date + "'," + "'" + section + "'," + "'" + grave + "'," + "'" + interment + "'," +
               "'" + pnliner + "'," + "'" + pncgc + "'," + "'" + pnrmf + "'," + "'" + monument + "'," +
               "'" + ppplanting + "'," + "'" + veteran + "'," + "'" + cremated + "'," + "'" + lnotes + "'," +
-              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "');"
+              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "',NULL,'"+ payment + "'" + ");"
           );
         }
         else
@@ -287,12 +301,12 @@ public class NewEntry extends JDialog
               "INSERT INTO PLOTS (DECEASED_FNAME, DECEASED_LNAME, " +
               "PLOT_NUMBER, DATE_DECEASED, SECTION, GRAVE, INTERMENT_NUMBER, PN_LINER, " +
               "PN_CGC, PN_RMF, MONUMENT, PP_PLANTING, VETERAN, CREMATED, LINER_NOTES, " +
-              "RMF_NOTES, CGC_NOTES, MONUMENT_NOTES) " +
+              "RMF_NOTES, CGC_NOTES, MONUMENT_NOTES, UNPAID_BALANCE, PAYMENT_ID) " +
               "VALUES ('" + firstName + "'," + "'" + lastName + "'," + "'" + plotNumber + "'," +
               "NULL," + "'" + section + "'," + "'" + grave + "'," + "'" + interment + "'," +
               "'" + pnliner + "'," + "'" + pncgc + "'," + "'" + pnrmf + "'," + "'" + monument + "'," +
               "'" + ppplanting + "'," + "'" + veteran + "'," + "'" + cremated + "'," + "'" + lnotes + "'," +
-              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "');"
+              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "',NULL,'"+ payment + "'" + ");"
           );
         }
         stmt.close();
