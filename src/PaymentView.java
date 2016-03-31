@@ -20,6 +20,8 @@ public class PaymentView extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(3, 1));
 
+
+
         add(test);
     }
 
