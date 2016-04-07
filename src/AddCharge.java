@@ -1,3 +1,6 @@
+/**
+ * Created by brittanyregrut on 4/7/16.
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,23 +13,20 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by brittanyregrut on 3/31/16.
- */
-public class AddPayment extends JDialog{
+public class AddCharge extends JDialog{
 
     private DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
     private JTextField amount = new JTextField();
-    private JTextField payType = new JTextField();
     private JFormattedTextField date = new JFormattedTextField(df);
-    private JLabel newPay = new JLabel("Submit a new payment: ");
-    private JLabel amountLabel = new JLabel("Payment Amount: ");
-    private JLabel payLabel = new JLabel("Payment Type: ");
-    private JLabel dateLabel = new JLabel("Payment Date: ");
+    private JTextField admin = new JTextField();
+    private JLabel newPay = new JLabel("Add new charges: ");
+    private JLabel amountLabel = new JLabel("Amount: ");
+    private JLabel dateLabel = new JLabel("Date added: ");
+    private JLabel adminLabel = new JLabel("Administrator name: ");
     private JPanel inputPanel = new JPanel(new GridLayout(3, 2));
-    private JButton submit = new JButton("Add Payment");
+    private JButton submit = new JButton("Add Charges");
 
-    public AddPayment(Entry en){
+    public AddCharge(Entry en){
         //set basic functionality
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) ((.25) * (screenSize.getWidth()));
@@ -39,10 +39,10 @@ public class AddPayment extends JDialog{
         //Add input information to panel
         inputPanel.add(amountLabel);
         inputPanel.add(amount);
-        inputPanel.add(payLabel);
-        inputPanel.add(payType);
         inputPanel.add(dateLabel);
         inputPanel.add(date);
+        inputPanel.add(adminLabel);
+        inputPanel.add(admin);
 
         //Add everything to window
         add(newPay);
@@ -60,7 +60,8 @@ public class AddPayment extends JDialog{
                 int id = en.getPaymentID();
                 double amt = Double.parseDouble(amount.getText());
                 String payDate = date.getText();
-                String type = payType.getText();
+                String adminName = admin.getText();
+                String type = "CHARGE";
 
                 try{
                     Class.forName("org.h2.Driver");
@@ -94,18 +95,21 @@ public class AddPayment extends JDialog{
                     }
 
                     //update the balance
-                    balance = balance - amt;
+                    balance = balance + amt;
+
+                    //make amt negative for display purposes
+                    amt = amt - (2*amt);
 
                     //Insert new payment into db
-                    boolean insert = stmt.execute("INSERT INTO PAYMENTS(ID, PAYMENT_NUMBER, AMOUNT, DATE, PAYMENT_TYPE, BALANCE) VALUES(" + id + ", " + numPay + ", " + amt + ", '" + payDate + "', '" + type + "', " + balance + ")");
+                    boolean insert = stmt.execute("INSERT INTO PAYMENTS(ID, PAYMENT_NUMBER, AMOUNT, DATE, PAYMENT_TYPE, BALANCE, ADMIN) VALUES(" + id + ", " + numPay + ", " + amt + ", '" + payDate + "', '" + type + "', " + balance + ", '" + adminName + "')");
 
                     //If successfully inserted, deduct amount from entry's balance
                     if (!insert){
-                        JOptionPane.showMessageDialog(new Frame(), "Payment Entry Successful - ID: " + id + "\nNew Balance: " + balance);
+                        JOptionPane.showMessageDialog(new Frame(), "Charge Entry Successful - ID: " + id + "\nNew Balance: " + balance);
                     }
                     else{
                         //else display error
-                        JOptionPane.showMessageDialog(new Frame(), "Payment Entry Not Successful");
+                        JOptionPane.showMessageDialog(new Frame(), "Charge Entry Not Successful");
                     }
                     stmt.close();
                     con.close();
@@ -125,3 +129,4 @@ public class AddPayment extends JDialog{
 
 
 }
+

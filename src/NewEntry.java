@@ -292,7 +292,7 @@ public class NewEntry extends JDialog
               "'" + date + "'," + "'" + section + "'," + "'" + grave + "'," + "'" + interment + "'," +
               "'" + pnliner + "'," + "'" + pncgc + "'," + "'" + pnrmf + "'," + "'" + monument + "'," +
               "'" + ppplanting + "'," + "'" + veteran + "'," + "'" + cremated + "'," + "'" + lnotes + "'," +
-              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "',NULL,'"+ payment + "'" + ");"
+              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "', 0, '"+ payment + "'" + ");"
           );
         }
         else
@@ -306,7 +306,7 @@ public class NewEntry extends JDialog
               "NULL," + "'" + section + "'," + "'" + grave + "'," + "'" + interment + "'," +
               "'" + pnliner + "'," + "'" + pncgc + "'," + "'" + pnrmf + "'," + "'" + monument + "'," +
               "'" + ppplanting + "'," + "'" + veteran + "'," + "'" + cremated + "'," + "'" + lnotes + "'," +
-              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "',NULL,'"+ payment + "'" + ");"
+              "'" + cnotes + "'," + "'" + rnotes + "'," + "'" + mnotes + "', 0,'"+ payment + "'" + ");"
           );
         }
         stmt.close();

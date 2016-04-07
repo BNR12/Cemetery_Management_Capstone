@@ -54,7 +54,8 @@ public class PaymentView extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-
+                AddCharge newCharge = new AddCharge(en);
+                newCharge.setVisible(true);
             }
         });
 

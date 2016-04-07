@@ -61,7 +61,7 @@ public class PaymentPanel extends JPanel
         searchTable.setModel(model);
 
         //Add columns with appropriate headings to the table
-        model.addColumn("Payment Number");
+        model.addColumn("Transaction Number");
         model.addColumn("First Name");
         model.addColumn("Last Name");
         model.addColumn("Date");
