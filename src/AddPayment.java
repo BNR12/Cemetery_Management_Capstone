@@ -89,7 +89,7 @@ public class AddPayment extends JDialog{
                         double balance = en.getBalance();
                         balance = balance - amt;
                         en.setBalance(balance);
-                        JOptionPane.showMessageDialog(new Frame(), "Payment Entry Successful");
+                        JOptionPane.showMessageDialog(new Frame(), "Payment Entry Successful - ID: " + id + "\nNew Balance: " + balance);
                     }
                     else{
                         //else display error
