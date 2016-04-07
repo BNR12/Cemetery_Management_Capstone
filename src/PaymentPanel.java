@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,13 +22,15 @@ public class PaymentPanel extends JPanel
 {
     //Model for the table of search results
     private DefaultTableModel model;
+    private Entry entry;
 
 
     /**
      * DisplayPanel constructor
      */
-    public PaymentPanel()
+    public PaymentPanel(Entry en)
     {
+        entry = en;
         model = new DefaultTableModel()
         {
             //Switch statement specifying first 6 rows as strings, and the last row to be booleans (checkboxes)
@@ -62,6 +68,9 @@ public class PaymentPanel extends JPanel
         model.addColumn("Amount");
         model.addColumn("Payment Type");
 
+        //refresh table entries
+        this.refresh();
+
         //Add the table to the display panel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new JScrollPane(searchTable));
@@ -92,5 +101,41 @@ public class PaymentPanel extends JPanel
     public void clear()
     {
         model.setNumRows(0);
+    }
+
+    /**
+     * Adds the payments to the table
+     *
+     */
+    public void refresh(){
+        //Get payments from the db
+        int id = entry.getPaymentID();
+
+        try {
+            Class.forName("org.h2.Driver");
+            Connection con = DriverManager.getConnection("jdbc:h2:./h2/cemetery;IFEXISTS=TRUE", "laboon", "bethshalom");
+            Statement stmt = con.createStatement();
+
+            //determine payment number
+            ResultSet rs = stmt.executeQuery("SELECT * FROM PAYMENTS WHERE ID=" + id);
+
+            //i is a counter for number of results
+            int i = 0;
+
+            while (rs.next()) {
+                String payNum = rs.getString("PAYMENT_NUMBER");
+                String amt = rs.getString("AMOUNT");
+                String date = rs.getString("DATE");
+                String payType = rs.getString("PAYMENT_TYPE");
+                add(i, payNum, amt, date, payType, entry);
+                i++;
+            }
+            stmt.close();
+            con.close();
+
+        }catch (Exception er)
+        {
+            System.out.println(er.getMessage());
+        }
     }
 }

@@ -9,13 +9,16 @@ import java.awt.event.ActionListener;
 public class PaymentView extends JDialog {
 
     private JLabel test = new JLabel("Testing Payment View");
-    private JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+    private JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
     private JButton add = new JButton("Add a new payment");
     private JButton charge = new JButton("Add new charges");
-    private PaymentPanel pp = new PaymentPanel();
+    private JButton refresh = new JButton("Refresh payment display");
+    private PaymentPanel pp;
 
     /** Opens a payment information viewer for an existing entry */
     public PaymentView(Entry en){
+        //Initialize payment panel
+        pp = new PaymentPanel(en);
 
         //set basic functionality
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,6 +32,7 @@ public class PaymentView extends JDialog {
         //Add Buttons to Panel
         buttonPanel.add(add);
         buttonPanel.add(charge);
+        buttonPanel.add(refresh);
 
         //Add button panel
         add(buttonPanel);
@@ -56,6 +60,16 @@ public class PaymentView extends JDialog {
 
         //Add payment panel
         add(pp);
+
+        //Action listener for the button to refresh the payment panel
+        refresh.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                pp.refresh();
+            }
+        });
 
     }
 
