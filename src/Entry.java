@@ -296,6 +296,8 @@ public class Entry
     return balance;
   }
 
+  public void setBalance(double b) {this.balance = b;}
+
 
   /**
    * Prints entry to a text file

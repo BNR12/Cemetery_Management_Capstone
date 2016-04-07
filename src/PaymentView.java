@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by brittanyregrut on 3/18/16.
@@ -30,6 +32,27 @@ public class PaymentView extends JDialog {
 
         //Add button panel
         add(buttonPanel);
+
+        //Action listener for the button to add a new payment
+        add.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                AddPayment newPayment = new AddPayment(en);
+                newPayment.setVisible(true);
+            }
+        });
+
+        //Action listener for the button to add new charges to an account
+        charge.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
+            }
+        });
 
         //Add payment panel
         add(pp);
